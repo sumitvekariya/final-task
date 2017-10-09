@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewGroup()">New Group</button>
+  </div>
+</div>
+
+<hr>
+  <div class="row">
+    <div class="col-xs-12">
+    <app-group-item 
+    *ngFor="let grp of group; let i = index" 
+    [groups]="grp" 
+    [index]="i"></app-group-item>
+    </div>
+  </div>

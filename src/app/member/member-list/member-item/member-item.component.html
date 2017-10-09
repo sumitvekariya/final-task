@@ -1,0 +1,10 @@
+<div class="list-group">
+  <a class="list-group-item list-group-item-action flex-column align-items-start" [routerLink]="[index]" routerLinkActive="active">
+    <div class="d-flex w-100 justify-content-between">
+      <h3 class="mb-1">{{ members.firstName }} {{ members.middleName }} {{ members.lastName }}</h3>
+    </div>
+    <p class="mb-1">E-mail: {{ members.EmailAddress }}</p>
+    <p class="mb-1">Member Id: {{ members._id }}</p>
+    <p class="mb-1">Team Id: {{ members.teamId }}</p>
+  </a>
+</div>

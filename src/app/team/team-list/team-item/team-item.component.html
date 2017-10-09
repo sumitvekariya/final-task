@@ -1,0 +1,11 @@
+<div class="list-group">
+  <a class="list-group-item list-group-item-action flex-column align-items-start" [routerLink]="[index]" routerLinkActive="active">
+    <div class="d-flex w-100 justify-content-between">
+      <h3 class="mb-1">{{ teams.name }}</h3>
+    </div>
+    <p class="mb-1">Description: {{ teams.description }}</p>
+    <p class="mb-1">Tech Stack: {{ teams.techStack }}</p>
+    <p class="mb-1">Group Id: {{ teams.groupId }}</p>
+    <p class="mb-1">Team Id: {{ teams._id }}</p>
+  </a>
+</div>

@@ -1,0 +1,42 @@
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>{{ member.firstName }} {{ member.middleName }} {{ member.lastName }}</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h4>Email Address:{{ member.EmailAddress }}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h4>Member Id: {{ member._id }}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h4>Team Id: {{ member.teamId }}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group" appDropdown>
+      <button type="button" class="btn btn-primary dropdown-toggle">
+        Manage Member
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a style="cursor: pointer;" (click)="onEditMember()">Edit Group</a>
+        </li>
+        <li>
+          <a style="cursor: pointer;" (click)="onDeleteMember()">Delete Group</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

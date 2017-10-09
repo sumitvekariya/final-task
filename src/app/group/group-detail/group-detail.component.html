@@ -1,0 +1,38 @@
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>{{ group.name }}</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+   <h4>{{ group._id }}</h4> 
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+   <h4>{{ group.description }}</h4> 
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle">
+        Manage Recipe
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a style="cursor: pointer;" (click)="onEditGroup()">Edit Group</a>
+        </li>
+        <li>
+          <a style="cursor: pointer;" (click)="onDeleteGroup()">Delete Group</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

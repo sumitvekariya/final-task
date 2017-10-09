@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" [disabled]="!memberForm.valid">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">First Name</label>
+            <input type="text" id="firstname" formControlName="firstName" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Middle Name</label>
+            <input type="text" id="middlename" formControlName="middleName" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Last Name</label>
+            <input type="text" id="lastname" formControlName="lastName" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="email">E-mail Address</label>
+            <input type="text" id="email" formControlName="EmailAddress" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="memberid">Member ID</label>
+            <input type="text" id="memberid" formControlName="_id" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="teamid">Team ID</label>
+            <input type="text" id="teamid" class="form-control" formControlName="teamId">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
