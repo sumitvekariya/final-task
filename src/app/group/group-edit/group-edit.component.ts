@@ -1,3 +1,5 @@
+import { HttpEvent } from '@angular/common/http';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -31,19 +33,19 @@ export class GroupEditComponent implements OnInit {
   private initForm() {
     let groupName = '';
     let groupDescription = '';
-    let groupId = '';
+  //  let groupId = '';
 
     if (this.editMode) {
       const group = this.groupservice.getGroupById(this.id);
       console.log(group);
       groupName = group.name;
       groupDescription = group.description;
-      groupId = group._id;
+    //  groupId = group._id;
       }
 
       this.groupForm = new FormGroup({
         'name': new FormControl(groupName, Validators.required),
-        '_id': new FormControl(groupId, Validators.required),
+      //  '_id': new FormControl(groupId, Validators.required),
         'description': new FormControl(groupDescription, Validators.required)
       });
   }
@@ -54,6 +56,15 @@ export class GroupEditComponent implements OnInit {
       this.groupservice.updateGroup(this.id, this.groupForm.value);
     } else {
       this.groupservice.addGroup(this.groupForm.value);
+      this.groupservice.storeGroup(this.id)
+      .subscribe(
+        (response: HttpEvent<Object>) => {
+          console.log(response);
+        }
+      );
+
+
+
     }
     this.onCancel();
   }

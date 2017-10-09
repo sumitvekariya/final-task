@@ -35,6 +35,12 @@ export class GroupDetailComponent implements OnInit {
 
   onDeleteGroup() {
     this.groupservice.deleteGroup(this.id);
+    this.groupservice.onDeleteGroupData(this.id)
+    .subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
     this.router.navigate(['/group']);
   }
 
