@@ -1,8 +1,8 @@
 import { Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../common.service';
 import { Group } from './group.model';
+import { GroupService } from './group.service';
 
 @Component({
   selector: 'app-group',

@@ -58,7 +58,7 @@ export class GroupEditComponent implements OnInit {
       this.groupservice.addGroup(this.groupForm.value);
       this.groupservice.storeGroup(this.id)
       .subscribe(
-        (response: HttpEvent<Object>) => {
+        (response) => {
           console.log(response);
         }
       );

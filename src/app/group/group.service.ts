@@ -1,6 +1,6 @@
 
 import { EventEmitter, Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs/Rx';
 
 import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
@@ -15,8 +15,10 @@ export class GroupService {
   constructor(private httpclient: HttpClient) { }
 
   storeGroup(id: number) {
-    const req = new HttpRequest('POST', 'https://team-management-ghclxtoitp.now.sh/group', this.getGroup());
-    return this.httpclient.request(req);
+   // const req = new HttpRequest('POST', 'https://team-management-ghclxtoitp.now.sh/group', this.getGroup());
+
+    return this.httpclient.post('https://team-management-ghclxtoitp.now.sh/group', this.getGroupById(id));
+
     // return this.httpclient.post('https://testing-4617a.firebaseio.com/group.json', this.getGroupData())
     // // , {
     // //    observe: 'events',
@@ -39,9 +41,9 @@ export class GroupService {
 
   }
 
-  onDeleteGroupData(id: number) {
-    return this.httpclient.delete('https://team-management-ghclxtoitp.now.sh/group', this.getGroupById(id));
-  }
+  // onDeleteGroupData(id: number) {
+  //   return this.httpclient.delete('https://team-management-ghclxtoitp.now.sh/group', this.getGroupById());
+  // }
 
     getGroup() {
       return this.group.slice();
