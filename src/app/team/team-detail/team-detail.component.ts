@@ -33,8 +33,14 @@ export class TeamDetailComponent implements OnInit {
     // this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});
   }
 
-  onDeleteTeam() {
+  onDeleteTeam(teamid) {
     this.teamservice.deleteTeam(this.id);
+    this.teamservice.onDeleteTeamData(teamid)
+      .subscribe(
+      (data) => {
+        console.log(data);
+      }
+      );
     this.router.navigate(['/team']);
   }
 

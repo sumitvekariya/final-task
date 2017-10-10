@@ -12,7 +12,7 @@
         <div class="col-xs-12">
           <div class="form-group">
             <label for="name">Team Name</label>
-            <input type="text" id="name" formControlName="name" class="form-control">
+            <input type="text" id="name" formControlName="name" class="form-control" required>
           </div>
         </div>
       </div>
@@ -21,16 +21,16 @@
         <div class="col-xs-12">
           <div class="form-group">
             <label for="name">Tech Stack</label>
-            <input type="text" id="techstack" formControlName="techStack" class="form-control">
+            <input type="text" id="techstack" formControlName="techStack" class="form-control" required>
           </div>
         </div>
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
             <label for="groupname">Group ID</label>
-            <input type="text" id="groupid" formControlName="groupId" class="form-control">
+            <input type="text" id="groupid" formControlName="groupId" class="form-control" disabled>
           </div>
         </div>
       </div>
@@ -39,19 +39,36 @@
         <div class="col-xs-12">
           <div class="form-group">
             <label for="groupname">Team ID</label>
-            <input type="text" id="teamid" formControlName="_id" class="form-control">
+            <input type="text" id="teamid" formControlName="_id" class="form-control" disabled>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Group Description</label>
+            <textarea type="text" id="description" class="form-control" formControlName="description" rows="6" required></textarea>
           </div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group">
-            <label for="description">Group Description</label>
-            <textarea type="text" id="description" class="form-control" formControlName="description" rows="6"></textarea>
+          <div class="btn-group" appDropdown>
+            <div class="form-group">
+              <label for="sel1">Select Group:</label>
+              <select class="form-control" id="sel1" formControlName="groupId" required>
+                <option *ngFor="let grp of group" [value]="grp._id" class="form-control">{{ grp.name }}</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
+
     </form>
   </div>
 </div>
+
+
+

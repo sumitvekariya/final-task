@@ -33,8 +33,14 @@ export class MemberDetailComponent implements OnInit {
     // this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});
   }
 
-  onDeleteMember() {
+  onDeleteMember(memberid) {
     this.memberservice.deleteMember(this.id);
+    this.memberservice.onDeleteMemberData(memberid)
+      .subscribe(
+      (data) => {
+        console.log(data);
+      }
+      );
     this.router.navigate(['/member']);
   }
 

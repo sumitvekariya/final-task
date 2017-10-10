@@ -2,6 +2,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MemberService } from '../../member/member.service';
+import { TeamService } from '../../team/team.service';
+import { Team } from '../../team/team.model';
 
 @Component({
   selector: 'app-member-edit',
@@ -12,9 +14,11 @@ export class MemberEditComponent implements OnInit {
   id: number;
   editMode = false;
   memberForm: FormGroup;
+  team: Team[];
   constructor(private route: ActivatedRoute,
     private memberservice: MemberService,
-    private router: Router) { }
+    private router: Router,
+    private teamservice: TeamService) { }
 
   ngOnInit() {
     this.route.params
@@ -25,13 +29,23 @@ export class MemberEditComponent implements OnInit {
         this.initForm();
       }
       );
+
+    this.teamservice.getTeamData()
+      .subscribe(
+      (data: Team[]) => {
+        //  this.groupservice.setGroup(data);
+        this.team = data;
+      }
+      );
   }
+
+
 
   private initForm() {
     let memberFirstName = '';
     let memberLastName = '';
     let memberMiddleName = '';
-    let memberId = '';
+  //  let memberId = 'ID will be assigned automatically';
     let teamId = '';
     let emailAddress = '';
 
@@ -42,27 +56,41 @@ export class MemberEditComponent implements OnInit {
       memberMiddleName = member.middleName;
       memberLastName = member.lastName;
       teamId = member.teamId;
-      memberId = member._id;
+    //  memberId = member._id;
       emailAddress = member.EmailAddress;
     }
 
     this.memberForm = new FormGroup({
-      'firstName': new FormControl(memberFirstName, Validators.required),
+      'firstName': new FormControl(memberFirstName),
       'middleName': new FormControl(memberMiddleName),
-      'lastName': new FormControl(memberLastName, Validators.required),
-      'EmailAddress': new FormControl(emailAddress, Validators.email),
-      'teamId': new FormControl(teamId, Validators.required),
-      '_id': new FormControl(memberId, Validators.required),
+      'lastName': new FormControl(memberLastName),
+      'EmailAddress': new FormControl(emailAddress),
+      'teamId': new FormControl()
+    //  '_id': new FormControl(memberId),
 
     });
   }
 
+
+
   onSubmit() {
 
     if (this.editMode) {
-      this.memberservice.updateMember(this.id, this.memberForm.value);
+      const member = this.memberservice.getMemberById(this.id);
+      this.memberservice.updateMember(this.id, this.memberForm.value, member._id)
+        .subscribe(
+        response => {
+          console.log(response);
+        }
+        );
     } else {
       this.memberservice.addMember(this.memberForm.value);
+      this.memberservice.storeMember(this.memberForm.value)
+        .subscribe(
+        (response) => {
+          console.log(response);
+        }
+        );
     }
     this.onCancel();
   }

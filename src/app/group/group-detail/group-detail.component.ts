@@ -33,14 +33,14 @@ export class GroupDetailComponent implements OnInit {
     // this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});
   }
 
-  onDeleteGroup() {
+  onDeleteGroup(groupid: string) {
     this.groupservice.deleteGroup(this.id);
-    // this.groupservice.onDeleteGroupData(this.id)
-    // .subscribe(
-    //   (data) => {
-    //     console.log(data);
-    //   }
-    // );
+    this.groupservice.onDeleteGroupData(groupid)
+    .subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
     this.router.navigate(['/group']);
   }
 

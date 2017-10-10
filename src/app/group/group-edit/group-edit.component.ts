@@ -44,27 +44,30 @@ export class GroupEditComponent implements OnInit {
       }
 
       this.groupForm = new FormGroup({
-        'name': new FormControl(groupName, Validators.required),
-      //  '_id': new FormControl(groupId, Validators.required),
-        'description': new FormControl(groupDescription, Validators.required)
+        'name': new FormControl(groupName),
+      //  '_id': new FormControl( groupId),
+        'description': new FormControl(groupDescription)
       });
   }
 
   onSubmit() {
 
     if (this.editMode) {
-      this.groupservice.updateGroup(this.id, this.groupForm.value);
+      const group = this.groupservice.getGroupById(this.id);
+      this.groupservice.updateGroup(this.id, this.groupForm.value, group._id)
+      .subscribe(
+        response => {
+          console.log(response);
+        }
+      );
     } else {
       this.groupservice.addGroup(this.groupForm.value);
-      this.groupservice.storeGroup(this.id)
+      this.groupservice.storeGroup(this.groupForm.value)
       .subscribe(
         (response) => {
           console.log(response);
         }
       );
-
-
-
     }
     this.onCancel();
   }

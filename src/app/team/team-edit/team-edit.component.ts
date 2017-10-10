@@ -2,6 +2,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { TeamService } from '../../team/team.service';
+import { GroupService } from '../../group/group.service';
+import { Group } from '../../group/group.model';
 
 @Component({
   selector: 'app-team-edit',
@@ -11,11 +13,14 @@ import { TeamService } from '../../team/team.service';
 export class TeamEditComponent implements OnInit {
   id: number;
   editMode = false;
+  group: Group[];
+
   teamForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private teamservice: TeamService,
-    private router: Router) { }
+    private router: Router,
+    private groupservice: GroupService) { }
 
   ngOnInit() {
     this.route.params
@@ -26,14 +31,22 @@ export class TeamEditComponent implements OnInit {
         this.initForm();
       }
       );
+
+    this.groupservice.getGroupData()
+      .subscribe(
+      (data: Group[]) => {
+      //  this.groupservice.setGroup(data);
+        this.group = data;
+      }
+      );
   }
 
   private initForm() {
     let teamName = '';
     let teamDescription = '';
     let techStack = '';
-    let teamId = '';
-    let groupId = '';
+  //  let teamId = 'ID will be assigned automatically';
+  //  let groupId = 'ID will be assigned automatically';
 
     if (this.editMode) {
       const team = this.teamservice.getTeamById(this.id);
@@ -41,25 +54,37 @@ export class TeamEditComponent implements OnInit {
       teamName = team.name;
       teamDescription = team.description;
       techStack = team.techStack;
-      groupId = team.groupId;
-      teamId = team._id;
+    //  groupId = team.groupId;
+    //  teamId = team._id;
     }
 
     this.teamForm = new FormGroup({
-      'name': new FormControl(teamName, Validators.required),
-      '_id': new FormControl(teamId, Validators.required),
-      'description': new FormControl(teamDescription, Validators.required),
-      'groupId': new FormControl(groupId, Validators.required),
-      'techStack': new FormControl(techStack, Validators.required),
+      'name': new FormControl(teamName),
+    //  '_id': new FormControl(teamId),
+      'description': new FormControl(teamDescription),
+      'groupId': new FormControl(),
+      'techStack': new FormControl(techStack),
     });
   }
 
   onSubmit() {
 
     if (this.editMode) {
-      this.teamservice.updateTeam(this.id, this.teamForm.value);
+      const team = this.teamservice.getTeamById(this.id);
+      this.teamservice.updateTeam(this.id, this.teamForm.value, team._id)
+        .subscribe(
+        response => {
+          console.log(response);
+        }
+        );
     } else {
       this.teamservice.addTeam(this.teamForm.value);
+      this.teamservice.storeTeam(this.teamForm.value)
+        .subscribe(
+        (response) => {
+          console.log(response);
+        }
+      );
     }
     this.onCancel();
   }
