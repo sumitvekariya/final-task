@@ -21,7 +21,7 @@ export class GroupDetailComponent implements OnInit {
     this.route.params
       .subscribe(
       (params: Params) => {
-        this.id = +params['id'];
+        this.id = params['id'];
         this.group = this.groupservice.getGroupById(this.id);
         console.log(this.group);
       }

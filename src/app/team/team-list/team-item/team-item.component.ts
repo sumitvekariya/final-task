@@ -16,7 +16,7 @@ export class TeamItemComponent implements OnInit {
   constructor(private memberservice: MemberService) { }
 
   ngOnInit() {
-    this.memberservice.getMemberDataByGroupId(this.teams._id)
+    this.memberservice.getMemberDataByTeamId(this.teams._id)
       .subscribe(
       (data: Member[]) => {
         this.member = data;
@@ -25,5 +25,4 @@ export class TeamItemComponent implements OnInit {
       }
       );
   }
-
 }

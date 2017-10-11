@@ -4,21 +4,24 @@ import { Subject } from 'rxjs/Rx';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Member } from './member.model';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class MemberService {
   member: Member[];
   memberChanged = new Subject<Member[]>();
+  url: string = environment.apiURL;
   constructor(private httpclient: HttpClient) { }
 
   storeMember(member) {
     const jsonHeader = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpclient.post('https://team-management-ghclxtoitp.now.sh/teamMember', member, {
+    return this.httpclient.post(this.url + '/teamMember', member, {
       headers: jsonHeader
     });
   }
+
   getMemberData() {
-    return this.httpclient.get('https://team-management-ghclxtoitp.now.sh/teamMember')
+    return this.httpclient.get(this.url + '/teamMember')
       .map(
       data => {
         console.log(data);
@@ -28,8 +31,8 @@ export class MemberService {
 
   }
 
-  getMemberDataByGroupId(teamid) {
-    return this.httpclient.get('https://team-management-ghclxtoitp.now.sh/teamMember?teamId=' + teamid)
+  getMemberDataByTeamId(teamid) {
+    return this.httpclient.get(this.url + '/teamMember?teamId=' + teamid)
       .map(
       data => {
         console.log(teamid);
@@ -48,7 +51,7 @@ export class MemberService {
     this.member[index] = newMember;
     this.memberChanged.next(this.member.slice());
     const jsonHeader = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpclient.put('https://team-management-ghclxtoitp.now.sh/teamMember/' + memberid, newMember, {
+    return this.httpclient.put(this.url + '/teamMember/' + memberid, newMember, {
       headers: jsonHeader
     });
   }
@@ -69,7 +72,7 @@ export class MemberService {
 
   onDeleteMemberData(memberid: string) {
     const jsonHeader = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpclient.delete('https://team-management-ghclxtoitp.now.sh/teamMember/' + memberid, {
+    return this.httpclient.delete(this.url + '/teamMember/' + memberid, {
       headers: jsonHeader
     });
   }

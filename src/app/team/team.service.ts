@@ -4,19 +4,21 @@ import { Subject } from 'rxjs/Rx';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Team } from './team.model';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class TeamService {
   team: Team[];
   teamChanged = new Subject<Team[]>();
+  url: string = environment.apiURL;
   constructor(private httpclient: HttpClient) { }
 
   storeTeam(team) {
-    return this.httpclient.post('https://team-management-ghclxtoitp.now.sh/team', team);
+    return this.httpclient.post(this.url + '/team', team);
   }
 
   getTeamData() {
-    return this.httpclient.get('https://team-management-ghclxtoitp.now.sh/team')
+    return this.httpclient.get(this.url + '/team')
       .map(
       data => {
         console.log(data);
@@ -27,7 +29,7 @@ export class TeamService {
   }
 
   getTeamDataByGroupId(groupid) {
-    return this.httpclient.get('https://team-management-ghclxtoitp.now.sh/team?groupId=' + groupid)
+    return this.httpclient.get(this.url + '/team?groupId=' + groupid)
       .map(
       data => {
         console.log(groupid);
@@ -46,7 +48,7 @@ export class TeamService {
     this.team[index] = newTeam;
     this.teamChanged.next(this.team.slice());
     const jsonHeader = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpclient.put('https://team-management-ghclxtoitp.now.sh/team/' + teamid, newTeam, {
+    return this.httpclient.put(this.url + '/team/' + teamid, newTeam, {
       headers: jsonHeader
     });
   }
@@ -67,7 +69,7 @@ export class TeamService {
 
   onDeleteTeamData(teamid: string) {
     const jsonHeader = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpclient.delete('https://team-management-ghclxtoitp.now.sh/team/' + teamid, {
+    return this.httpclient.delete(this.url + '/team/' + teamid, {
       headers: jsonHeader
     });
   }

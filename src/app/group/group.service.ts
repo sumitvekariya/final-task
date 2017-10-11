@@ -6,31 +6,37 @@ import { Subject } from 'rxjs/Rx';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
 import 'rxjs/Rx';
 import { Group } from './group.model';
+import { environment } from '../../environments/environment';
+import { MemberService } from '../member/member.service';
 
 @Injectable()
 export class GroupService {
   group: Group[];
   groupChanged = new Subject<Group[]>();
+  url: string = environment.apiURL;
+  constructor(
+                private httpclient: HttpClient
 
-  constructor(private httpclient: HttpClient) { }
+              ) { }
 
   storeGroup(group) {
-    return this.httpclient.post('https://team-management-ghclxtoitp.now.sh/group', group);
+    return this.httpclient.post(this.url + '/group', group);
   }
-    getGroupData() {
-    return this.httpclient.get('https://team-management-ghclxtoitp.now.sh/group')
+
+  getGroupData() {
+    return this.httpclient.get(this.url + '/group')
     .map(
       data => {
         console.log(data);
         return data;
       }
     );
-
   }
+
 
   onDeleteGroupData(groupid: string) {
     const jsonHeader = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpclient.delete('https://team-management-ghclxtoitp.now.sh/group/' + groupid, {
+    return this.httpclient.delete(this.url + '/group/' + groupid, {
       headers: jsonHeader} );
   }
 
@@ -47,7 +53,7 @@ export class GroupService {
       this.group[index] = newGroup;
       this.groupChanged.next(this.group.slice());
       const jsonHeader = new HttpHeaders().set('Content-Type', 'application/json');
-      return this.httpclient.put('https://team-management-ghclxtoitp.now.sh/group/' + groupid  , newGroup, {
+      return this.httpclient.put(this.url + '/group/' + groupid  , newGroup, {
         headers: jsonHeader
       });
     }
