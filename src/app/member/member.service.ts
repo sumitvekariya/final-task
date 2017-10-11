@@ -28,6 +28,17 @@ export class MemberService {
 
   }
 
+  getMemberDataByGroupId(teamid) {
+    return this.httpclient.get('https://team-management-ghclxtoitp.now.sh/teamMember?teamId=' + teamid)
+      .map(
+      data => {
+        console.log(teamid);
+        return data;
+      }
+      );
+
+  }
+
   addMember(member: Member) {
     this.member.push(member);
     this.memberChanged.next(this.member.slice());

@@ -26,6 +26,17 @@ export class TeamService {
 
   }
 
+  getTeamDataByGroupId(groupid) {
+    return this.httpclient.get('https://team-management-ghclxtoitp.now.sh/team?groupId=' + groupid)
+      .map(
+      data => {
+        console.log(groupid);
+        return data;
+      }
+      );
+
+  }
+
   addTeam(team: Team) {
     this.team.push(team);
     this.teamChanged.next(this.team.slice());
