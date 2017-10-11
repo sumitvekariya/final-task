@@ -30,19 +30,28 @@ export class GroupItemComponent implements OnInit {
         console.log(this.team);
         this.teamCount = this.team.length;
 
-        this.memberservice.getMemberData()
+        for (const tm of this.team) {
+          this.memberservice.getMemberDataByTeamId(tm._id)
           .subscribe(
-          (member: Member[]) => {
-            this.member = member;
-            for (const mem of this.member) {
-              for (const tm of this.team) {
-                if (mem.teamId === tm._id) {
-                  this.memberCount++;
-                }
-              }
+            (mem: Member[]) => {
+              this.memberCount = mem.length;
             }
-          }
           );
+        }
+
+        // this.memberservice.getMemberData()
+        //   .subscribe(
+        //   (member: Member[]) => {
+        //     this.member = member;
+        //     for (const mem of this.member) {
+        //       for (const tm of this.team) {
+        //         if (mem.teamId === tm._id) {
+        //           this.memberCount++;
+        //         }
+        //       }
+        //     }
+        //   }
+        //   );
       }
       );
   }
