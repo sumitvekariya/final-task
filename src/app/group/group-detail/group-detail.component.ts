@@ -2,6 +2,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { Group } from '../group.model';
 import { GroupService } from '../group.service';
+import { TeamService } from '../../team/team.service';
+import { Team } from '../../team/team.model';
 
 @Component({
   selector: 'app-group-detail',
@@ -11,10 +13,12 @@ import { GroupService } from '../group.service';
 export class GroupDetailComponent implements OnInit {
   group: Group;
   id: number;
+  team: Team[];
   constructor(
     private groupservice: GroupService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private teamservice: TeamService
   ) { }
 
   ngOnInit() {
@@ -24,8 +28,24 @@ export class GroupDetailComponent implements OnInit {
         this.id = params['id'];
         this.group = this.groupservice.getGroupById(this.id);
         console.log(this.group);
+
+        this.teamservice.getTeamDataByGroupId(this.group._id)
+          .subscribe(
+          (data: Team[]) => {
+            this.team = data;
+            console.log(this.team);
+          }
+          );
       }
       );
+
+    this.teamservice.getTeamDataByGroupId(this.group._id)
+      .subscribe(
+      (data: Team[]) => {
+        this.team = data;
+        console.log(this.team);
+      }
+    );
    }
 
   onEditGroup() {

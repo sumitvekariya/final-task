@@ -2,6 +2,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { Team } from '../team.model';
 import { TeamService } from '../../team/team.service';
+import { MemberService } from '../../member/member.service';
+import { Member } from '../../member/member.model';
 
 @Component({
   selector: 'app-team-detail',
@@ -11,10 +13,12 @@ import { TeamService } from '../../team/team.service';
 export class TeamDetailComponent implements OnInit {
   team: Team;
   id: number;
+  member: Member[];
   constructor(
     private teamservice: TeamService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private memberservice: MemberService
   ) { }
 
   ngOnInit() {
@@ -24,6 +28,22 @@ export class TeamDetailComponent implements OnInit {
         this.id = +params['id'];
         this.team = this.teamservice.getTeamById(this.id);
         console.log(this.team);
+
+        this.memberservice.getMemberDataByTeamId(this.team._id)
+          .subscribe(
+          (data: Member[]) => {
+            this.member = data;
+            console.log(this.member);
+          }
+          );
+      }
+      );
+
+    this.memberservice.getMemberDataByTeamId(this.team._id)
+      .subscribe(
+      (data: Member[]) => {
+        this.member = data;
+        console.log(this.member);
       }
       );
   }

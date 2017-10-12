@@ -28,7 +28,17 @@ export class TeamService {
 
   }
 
-  getTeamDataByGroupId(groupid) {
+  getTeamDataByTeamId(teamid) {
+    return this.httpclient.get(this.url + '/team/' + teamid)
+      .map(
+      data => {
+        console.log(data);
+        return data;
+      }
+      );
+  }
+
+  getTeamDataByGroupId(groupid: string) {
     return this.httpclient.get(this.url + '/team?groupId=' + groupid)
       .map(
       data => {

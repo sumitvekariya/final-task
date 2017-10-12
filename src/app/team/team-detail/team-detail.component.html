@@ -27,7 +27,23 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <h4>GroupId{{ team.groupId }}</h4>
+    <h4>GroupId: {{ team.groupId }}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="list-group">
+      <label for="teamname">
+        <h4>List of team members:</h4>
+      </label>
+      <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+
+          <h4 *ngFor="let mem of member; let i=index"> {{i+1}}. {{ mem.firstName }} {{ mem.middleName }} {{ mem.lastName }}</h4>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

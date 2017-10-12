@@ -26,6 +26,9 @@ import { MemberEditComponent } from './member/member-edit/member-edit.component'
 import { GroupService } from './group/group.service';
 import { MemberService } from './member/member.service';
 import { TeamService } from './team/team.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthService } from './auth/auth.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/group', pathMatch: 'full' },
@@ -68,7 +71,9 @@ const appRoutes: Routes = [
     MemberListComponent,
     MemberItemComponent,
     MemberDetailComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +83,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [GroupService, TeamService, MemberService],
+  providers: [GroupService, TeamService, MemberService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

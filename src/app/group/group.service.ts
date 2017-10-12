@@ -33,6 +33,16 @@ export class GroupService {
     );
   }
 
+  getGroupDataByGroupId(groupid) {
+    return this.httpclient.get(this.url + '/group/' + groupid)
+      .map(
+      data => {
+        console.log(data);
+        return data;
+      }
+      );
+  }
+
 
   onDeleteGroupData(groupid: string) {
     const jsonHeader = new HttpHeaders().set('Content-Type', 'application/json');

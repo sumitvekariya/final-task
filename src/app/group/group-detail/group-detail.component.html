@@ -9,12 +9,28 @@
 
 <div class="row">
   <div class="col-xs-12">
-   <h4>{{ group._id }}</h4> 
+   <h4>Group Id: {{ group._id }}</h4> 
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
-   <h4>{{ group.description }}</h4> 
+   <h4>Description: {{ group.description }}</h4> 
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="list-group">
+      <label for="teamname">
+        <h4>Teams under this group:</h4>
+      </label>
+      <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          
+          <h4 *ngFor = "let tm of team">{{ tm.name }}</h4>
+          </div>
+      </div>
+    </div>
   </div>
 </div>
 
