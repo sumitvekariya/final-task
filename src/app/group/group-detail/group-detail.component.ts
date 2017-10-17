@@ -4,6 +4,8 @@ import { Group } from '../group.model';
 import { GroupService } from '../group.service';
 import { TeamService } from '../../team/team.service';
 import { Team } from '../../team/team.model';
+import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-group-detail',
@@ -11,6 +13,7 @@ import { Team } from '../../team/team.model';
   styleUrls: ['./group-detail.component.css']
 })
 export class GroupDetailComponent implements OnInit {
+
   group: Group;
   id: number;
   team: Team[];
@@ -54,14 +57,39 @@ export class GroupDetailComponent implements OnInit {
   }
 
   onDeleteGroup(groupid: string) {
-    this.groupservice.deleteGroup(this.id);
-    this.groupservice.onDeleteGroupData(groupid)
-    .subscribe(
-      (data) => {
-        console.log(data);
-      }
-    );
-    this.router.navigate(['/group']);
+    swal({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this imaginary file!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then(deletedata => { if (deletedata) {
+      swal(
+        'Deleted!',
+        'Your Group has been deleted.',
+        'success'
+      );
+      this.groupservice.deleteGroup(this.id);
+      this.groupservice.onDeleteGroupData(groupid)
+        .subscribe(
+        (data) => {
+          console.log(data);
+        }
+        );
+      this.router.navigate(['/group']);
+    }
+  }
+   , function (dismiss) {
+        // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
+        if (dismiss === 'cancel') {
+          swal(
+            'Cancelled',
+            'Your Group is safe :)',
+            'error'
+          );
+        }
+      });
   }
 
 }

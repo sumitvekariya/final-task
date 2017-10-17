@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { MemberService } from '../../member/member.service';
 import { TeamService } from '../../team/team.service';
 import { Team } from '../../team/team.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-member-edit',
@@ -83,6 +84,11 @@ export class MemberEditComponent implements OnInit {
           console.log(response);
         }
         );
+      swal(
+        'Updated!',
+        'The Member has been Updated!',
+        'success'
+      );
     } else {
       this.memberservice.addMember(this.memberForm.value);
       this.memberservice.storeMember(this.memberForm.value)
@@ -91,6 +97,11 @@ export class MemberEditComponent implements OnInit {
           console.log(response);
         }
         );
+      swal(
+        'Added!',
+        'A new Member has been Added!',
+        'success'
+      );
     }
     this.onCancel();
   }

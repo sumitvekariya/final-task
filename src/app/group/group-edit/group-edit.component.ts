@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../group.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-group-edit',
@@ -17,7 +18,8 @@ export class GroupEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private groupservice: GroupService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.route.params
@@ -60,6 +62,11 @@ export class GroupEditComponent implements OnInit {
           console.log(response);
         }
       );
+      swal(
+        'Updated!',
+        'Group has been Updated!',
+        'success'
+      );
     } else {
       this.groupservice.addGroup(this.groupForm.value);
       this.groupservice.storeGroup(this.groupForm.value)
@@ -67,6 +74,11 @@ export class GroupEditComponent implements OnInit {
         (response) => {
           console.log(response);
         }
+      );
+      swal(
+        'Added!',
+        'A new Group has been Added!',
+        'success'
       );
     }
     this.onCancel();

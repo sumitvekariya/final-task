@@ -20,9 +20,14 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "styles.css"  
+        "styles.css",
+        "../node_modules/sweetalert2/dist/sweetalert2.min.css",
+        "../node_modules/@swimlane/ngx-datatable/release/themes/material.css",
+        "../node_modules/@swimlane/ngx-datatable/release/index.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/sweetalert2/dist/sweetalert2.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

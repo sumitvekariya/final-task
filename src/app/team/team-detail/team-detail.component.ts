@@ -4,6 +4,7 @@ import { Team } from '../team.model';
 import { TeamService } from '../../team/team.service';
 import { MemberService } from '../../member/member.service';
 import { Member } from '../../member/member.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-team-detail',
@@ -54,6 +55,20 @@ export class TeamDetailComponent implements OnInit {
   }
 
   onDeleteTeam(teamid) {
+    swal({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this imaginary file!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then(deletedata => {
+      if (deletedata) {
+        swal(
+          'Deleted!',
+          'Your Team has been deleted.',
+          'success'
+        );
     this.teamservice.deleteTeam(this.id);
     this.teamservice.onDeleteTeamData(teamid)
       .subscribe(
@@ -62,6 +77,17 @@ export class TeamDetailComponent implements OnInit {
       }
       );
     this.router.navigate(['/team']);
+    }
   }
-
+    , function (dismiss) {
+        // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
+        if (dismiss === 'cancel') {
+          swal(
+            'Cancelled',
+            'Your Team is safe :)',
+            'error'
+          );
+        }
+      });
+    }
 }

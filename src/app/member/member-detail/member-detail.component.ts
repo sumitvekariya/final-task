@@ -2,6 +2,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { Member } from '../member.model';
 import { MemberService } from '../../member/member.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-member-detail',
@@ -34,6 +35,20 @@ export class MemberDetailComponent implements OnInit {
   }
 
   onDeleteMember(memberid) {
+    swal({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this imaginary file!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then(deletedata => {
+      if (deletedata) {
+        swal(
+          'Deleted!',
+          'Your Team Member has been deleted.',
+          'success'
+        );
     this.memberservice.deleteMember(this.id);
     this.memberservice.onDeleteMemberData(memberid)
       .subscribe(
@@ -42,6 +57,17 @@ export class MemberDetailComponent implements OnInit {
       }
       );
     this.router.navigate(['/member']);
+    }
   }
-
+    , function (dismiss) {
+      // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
+      if (dismiss === 'cancel') {
+        swal(
+          'Cancelled',
+          'Your Team Member is safe :)',
+          'error'
+        );
+      }
+    });
+  }
 }

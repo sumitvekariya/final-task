@@ -29,9 +29,15 @@ import { TeamService } from './team/team.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthService } from './auth/auth.service';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import swal from 'sweetalert2';
+import { DatatableComponent } from './datatable/datatable.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/group', pathMatch: 'full' },
+  { path: 'signup', component: SignupComponent },
+  { path: 'datatable', component: DatatableComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'group', component: GroupComponent, children: [
     { path: 'new', component: GroupEditComponent },
     { path: ':id', component: GroupDetailComponent },
@@ -73,7 +79,8 @@ const appRoutes: Routes = [
     MemberDetailComponent,
     MemberEditComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    DatatableComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +88,7 @@ const appRoutes: Routes = [
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxDatatableModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [GroupService, TeamService, MemberService, AuthService],

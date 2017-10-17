@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { TeamService } from '../../team/team.service';
 import { GroupService } from '../../group/group.service';
 import { Group } from '../../group/group.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-team-edit',
@@ -77,6 +78,11 @@ export class TeamEditComponent implements OnInit {
           console.log(response);
         }
         );
+      swal(
+        'Added!',
+        'The Team has been Updated!',
+        'success'
+      );
     } else {
       this.teamservice.addTeam(this.teamForm.value);
       this.teamservice.storeTeam(this.teamForm.value)
@@ -84,6 +90,11 @@ export class TeamEditComponent implements OnInit {
         (response) => {
           console.log(response);
         }
+      );
+      swal(
+        'Added!',
+        'A new Team has been Added!',
+        'success'
       );
     }
     this.onCancel();
