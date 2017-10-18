@@ -4,6 +4,7 @@ import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/cor
 import { Team } from '../team.model';
 import 'rxjs/Rx';
 import { TeamService } from '../team.service';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'app-team-list',
@@ -15,10 +16,12 @@ export class TeamListComponent implements OnInit {
   constructor(
     private teamservice: TeamService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loadingservice: SlimLoadingBarService
   ) { }
 
   ngOnInit() {
+    this.loadingservice.start();
     this.teamservice.getTeamData()
       .subscribe(
       (data: Team[]) => {

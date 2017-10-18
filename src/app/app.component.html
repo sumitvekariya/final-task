@@ -1,15 +1,32 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Track Records</a>
+      <a class="navbar-brand" href="#">HR App</a>
     </div>
     <ul class="nav navbar-nav">
-      <li routerLinkActive="active"><a routerLink="/group">Groups</a></li>
-      <li routerLinkActive="active"><a routerLink="/team">Teams</a></li>
-      <li routerLinkActive="active"><a routerLink="/member">Team Members</a></li>
-      <li routerLinkActive="active"><a routerLink="/datatable">Data Table</a></li>
+      <li routerLinkActive="active"><a routerLink="/group">{{ 'Groups' | translate:param }}</a></li>
+      <li routerLinkActive="active"><a routerLink="/team">{{ 'Teams' | translate:param }}</a></li>
+      <li routerLinkActive="active"><a routerLink="/member">{{ 'Team Members' | translate:param }}</a></li>
+      <li routerLinkActive="active"><a routerLink="/datatable">{{ 'Data Table' | translate:param }}</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown" appDropdown>
+      <a style="cursor: pointer;" class="dropdown-toggle" role="button">Translate
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a style="cursor: pointer;" (click)="onEnglish()">{{ 'English' | translate:param }}</a>
+        </li>
+        <li>
+          <a style="cursor: pointer;" (click)="onFrench()">{{ 'French' | translate:param }}</a>
+        </li>
+      </ul>
+    </li>
     </ul>
   </div>
+  <ng2-slim-loading-bar [color]="'orange'"></ng2-slim-loading-bar>
 </nav>
 
 <div class="container">

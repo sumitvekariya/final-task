@@ -5,6 +5,7 @@ import { TeamService } from '../team/team.service';
 import { Team } from '../team/team.model';
 import { GroupService } from '../group/group.service';
 import { Group } from '../group/group.model';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'app-datatable',
@@ -24,46 +25,20 @@ export class DatatableComponent implements OnInit {
   constructor(
     private memberservice: MemberService,
     private teamservice: TeamService,
-    private groupservice: GroupService
+    private groupservice: GroupService,
+    private loadingservice: SlimLoadingBarService
   ) {}
 
   ngOnInit() {
+    const param = { value: 'world' };
+    this.loadingservice.start();
     this.memberservice.getMemberData()
       .subscribe(
       (data: Member[]) => {
         this.member = data;
         this.rows = this.member;
-      //   for (const mem of this.member) {
-      //     this.teamservice.getTeamDataByTeamId(mem.teamId)
-      //       .subscribe(
-      //       (teamdata: Team) => {
-      //         this.teamname = teamdata.name;
-      //     //    this.member.push(teamdata.name);
-      //         this.rows = this.member;
-      //         this.columns = [
-      //           {
-      //             prop: 'teamdata.name'
-      //           }
-      //         ];
-      //         console.log(this.teamname);
-      //         this.groupservice.getGroupDataByGroupId(teamdata.groupId)
-      //           .subscribe(
-      //           (group: Group) => {
-      //             this.groupname = group.name;
-      //           //  this.rows = this.member;
-      //             this.columns = [
-      //               {
-      //                 prop: 'group.name'
-      //               }
-      //             ];
-      //           }
-      //           );
-      //       }
-      //       );
-      //     console.log(this.member);
-      //   }
-         }
-       );
+        }
+      );
     this.columns = [
       {
         prop: '_id',
@@ -75,7 +50,7 @@ export class DatatableComponent implements OnInit {
         prop: 'teamId'
       }
     ];
-
+    this.loadingservice.complete();
   }
 
 }

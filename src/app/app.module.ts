@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { GroupComponent } from './group/group.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { GroupEditComponent } from './group/group-edit/group-edit.component';
 import { GroupListComponent } from './group/group-list/group-list.component';
 import { GroupDetailComponent } from './group/group-detail/group-detail.component';
@@ -31,7 +31,14 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthService } from './auth/auth.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import swal from 'sweetalert2';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { DatatableComponent } from './datatable/datatable.component';
+import { TranslateDirective, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/group', pathMatch: 'full' },
@@ -89,6 +96,14 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    SlimLoadingBarModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [GroupService, TeamService, MemberService, AuthService],

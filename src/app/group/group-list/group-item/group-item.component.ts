@@ -4,6 +4,7 @@ import { TeamService } from '../../../team/team.service';
 import { Team } from '../../../team/team.model';
 import { MemberService } from '../../../member/member.service';
 import { Member } from '../../../member/member.model';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'app-group-item',
@@ -19,7 +20,8 @@ export class GroupItemComponent implements OnInit {
   memberCount = 0;
   constructor(
               private teamservice: TeamService,
-              private memberservice: MemberService
+              private memberservice: MemberService,
+              private loadingservice: SlimLoadingBarService
   ) { }
 
   ngOnInit() {
@@ -54,6 +56,7 @@ export class GroupItemComponent implements OnInit {
         //   );
       }
       );
+    this.loadingservice.complete();
   }
 
 }

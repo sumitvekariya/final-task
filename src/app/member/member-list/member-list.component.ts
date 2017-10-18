@@ -4,6 +4,7 @@ import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/cor
 import { Member } from '../member.model';
 import 'rxjs/Rx';
 import { MemberService } from '../member.service';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'app-member-list',
@@ -16,10 +17,12 @@ export class MemberListComponent implements OnInit {
   constructor(
     private memberservice: MemberService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loadingservice: SlimLoadingBarService
   ) { }
 
   ngOnInit() {
+    this.loadingservice.start();
     this.memberservice.getMemberData()
       .subscribe(
       (data: Member[]) => {

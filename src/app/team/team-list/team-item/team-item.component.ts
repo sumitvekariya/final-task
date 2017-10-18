@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Team } from '../../team.model';
 import { MemberService } from '../../../member/member.service';
 import { Member } from '../../../member/member.model';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'app-team-item',
@@ -13,7 +14,10 @@ export class TeamItemComponent implements OnInit {
   @Input() index: number;
   member: Member[];
   memberCount = 0;
-  constructor(private memberservice: MemberService) { }
+  constructor(
+    private memberservice: MemberService,
+    private loadingservice: SlimLoadingBarService
+  ) { }
 
   ngOnInit() {
     this.memberservice.getMemberDataByTeamId(this.teams._id)
@@ -24,5 +28,6 @@ export class TeamItemComponent implements OnInit {
         this.memberCount = this.member.length;
       }
       );
+    this.loadingservice.complete();
   }
 }

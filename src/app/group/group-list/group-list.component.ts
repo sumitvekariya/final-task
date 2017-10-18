@@ -4,6 +4,7 @@ import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/cor
 import { Group } from '../group.model';
 import 'rxjs/Rx';
 import { GroupService } from '../group.service';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'app-group-list',
@@ -16,11 +17,16 @@ export class GroupListComponent implements OnInit {
   constructor(
     private groupservice: GroupService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loadingservice: SlimLoadingBarService
 
   ) { }
 
   ngOnInit() {
+  //  this.loadingservice.progress = 30;
+
+      // We can listen when loading will be completed
+    this.loadingservice.start();
     this.groupservice.getGroupData()
       .subscribe(
       (data: Group[]) => {
@@ -28,7 +34,6 @@ export class GroupListComponent implements OnInit {
         this.group = data;
       }
     );
-
   }
 
   onNewGroup() {
